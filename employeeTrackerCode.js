@@ -9,8 +9,9 @@ const connection = mysql.createConnection({
     database: "employee_trackerdb",
 });
 
-connection.connect(function(err) {
+connection.connect((err) => {
     if (err) throw err;
+    console.log("connected as id " + connection.threadID);
     runMain();
 });
 
