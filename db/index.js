@@ -64,5 +64,22 @@ getUpdateRole(res3) {
         id: res3.employee_id,
         }]
         )
-         }
+         },
+
+//Remove Data
+getRemoveEmployee(res) {
+    return connection.query("DELETE FROM employee WHERE ?",
+        {
+        id: res.name,
+        }
+    )
+},
+
+getRemoveDepartment(res) {
+    return connection.query("DELETE FROM department WHERE ?",
+        {
+          id: res.name,
+        }
+    )
+},         
 };

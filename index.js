@@ -18,8 +18,8 @@ function runMain() {
         "Add employee",
         "Add department",
         "Add role",
-        // "Remove employee",
-        // "Remove department",
+        "Remove employee",
+        "Remove department",
         // "Remove role",
         "Update employee role",
         // "Update employee manager",
@@ -60,13 +60,13 @@ function runMain() {
                 addRole();
                 return;
 
-            // case "Remove employee":
-            //     removeEmployee();
-            //     return;
+            case "Remove employee":
+                removeEmployee();
+                return;
 
-            // case "Remove department":
-            //     removeDepartment();
-            //     return;
+            case "Remove department":
+                removeDepartment();
+                return;
             
             // case "Remove role":
             //     removeRole();
@@ -235,12 +235,31 @@ function addRole() {
     });
     }
 
-// function removeEmployee() {
-//     db.getRemoveEmployee().then((results) => {
-//         console.table(results);
-//         runMain();
-// });
-// }
+function removeEmployee() {
+    db.getEmployees().then((employee) => {
+
+        inquirer
+          .prompt([
+              {
+              name: "name",
+              type: "list",
+              message: "Which employee would you like to delete?",
+              choices: employee.map( (employee) => ({
+                  value: employee.id,
+                  name: employee.first_name
+              }))
+              }
+          ]).then((res, err) => {
+      // console.log(res);
+      
+          db.getRemoveEmployee(res)
+              if (err) throw err;
+              
+              console.log("Employee successfully removed");
+              runMain();
+          })
+      });
+}
 
 function removeDepartment() {
 db.getDepartments().then((department) => {
@@ -249,15 +268,20 @@ db.getDepartments().then((department) => {
     .prompt([
         {
         name: "name",
-        type: "input",
-        message: "What is the name of the department you would like to add?"
+        type: "list",
+        message: "Which department would you like to delete?",
+        choices: department.map( (department) => ({
+            value: department.id,
+            name: department.name
+        }))
         }
     ]).then((res, err) => {
+// console.log(res);
 
-    db.getAddDepartment(res)
+    db.getRemoveDepartment(res)
         if (err) throw err;
         
-        console.log("New department successfully created!");
+        console.log("Department successfully removed");
         runMain();
     })
 });
@@ -293,7 +317,7 @@ function updateRole() {
                 {
                 name: "role_id",
                 type: "list",
-                message: "What is their new title?",
+                message: "What is their updated title?",
                 choices: role.map((role) => ({
                     value: role.id,
                     name: role.title
