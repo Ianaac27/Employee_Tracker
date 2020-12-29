@@ -1,10 +1,11 @@
 const connection = require("./connection");
 
 module.exports = {
-getDepartments() {
-    return connection.query("SELECT * FROM departments")
+getEmployeeAll() {
+    //innerjoin
+    return connection.query("SELECT * FROM employee")
 }
 
-};
 
-//All functions go here
+//add all function from
+};
