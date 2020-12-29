@@ -1,7 +1,7 @@
 const connection = require("./connection");
 
 module.exports = {
-getEmployeeAll() {
+getViewEmployees() {
     //innerjoin
     return connection.query("SELECT * FROM employee")
 }

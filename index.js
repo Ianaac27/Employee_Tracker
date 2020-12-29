@@ -11,10 +11,10 @@ function runMain() {
       message: "What would you like to do?",
       choices: [
         "View all employees",
-        "View employees by department",
         "View employees by manager",
-        "View employees by role",
+        "View departments",
         "View budget by department",
+        "View roles",
         "Add employee",
         "Remove employee",
         "Update employee role",
@@ -24,11 +24,11 @@ function runMain() {
     .then(function(res) {
         switch (res.main) {
             case "View all employees":
-                employeeAll();
+                viewEmployees();
                 return;
 
             case "View employees by department":
-                employeeDepartment();
+                viewDepartment();
                 return;
 
             case "View employees by manager":
@@ -36,7 +36,7 @@ function runMain() {
                 return;
 
             case "View employees by role":
-                employeeRole();
+                viewRole();
                 return;
 
             case "View budget by department":
@@ -65,8 +65,8 @@ function runMain() {
     });
 }
 
-function employeeAll() {
-db.getEmployeeAll().then((results) => {
+function viewEmployees() {
+db.getViewEmployees().then((results) => {
     console.table(results);
     runMain();
 });
