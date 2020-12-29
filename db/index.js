@@ -15,6 +15,17 @@ getRoles() {
 },
 
 //Add Data
+getAddEmployee(res3) {
+    return connection.query("INSERT INTO employee SET ?",
+        {
+          first_name: res3.first_name,
+          last_name: res3.last_name,
+          role_id: res3.role_id,
+          manager_id: res3.manager_id
+        }
+    )
+},
+
 getAddDepartment(res) {
     return connection.query("INSERT INTO department SET ?",
         {
@@ -22,6 +33,7 @@ getAddDepartment(res) {
         }
     )
 },
+
 getAddRole(res) {
     return connection.query("INSERT INTO role SET ?",
         {
