@@ -11,14 +11,19 @@ function runMain() {
       message: "What would you like to do?",
       choices: [
         "View all employees",
-        "View employees by department",
+        "View all departments",
+        "View all roles",
         "View employees by manager",
-        "View employees by role",
         "View budget by department",
         "Add employee",
+        "Add department",
+        "Add role",
         "Remove employee",
+        "Remove department",
+        "Remove role",
         "Update employee role",
-        "Update employee manager"
+        "Update employee manager",
+        "Quit"
       ]
     })
     .then(function(res) {
@@ -27,16 +32,16 @@ function runMain() {
                 viewEmployees();
                 return;
 
-            case "View employees by department":
+            case "View all departments":
                 viewDepartments();
                 return;
 
+            case "View all roles":
+                viewRoles();
+                return;    
+
             case "View employees by manager":
                 employeeManager();
-                return;
-
-            case "View employees by role":
-                viewRoles();
                 return;
 
             case "View budget by department":
@@ -47,9 +52,25 @@ function runMain() {
                 addEmployee();
                 return;
 
+            case "Add department":
+                addDepartment();
+                return;
+                
+            case "Add role":
+                addRole();
+                return;
+
             case "Remove employee":
                 removeEmployee();
                 return;
+
+            case "Remove department":
+                removeDepartment();
+                return;
+            
+            case "Remove role":
+                removeRole();
+                return;    
             
             case "Update employee role":
                 updateRole();
@@ -107,6 +128,50 @@ function addEmployee() {
 });
 }
 
+// function addDepartment() {
+//     // db.getDepartments().then((department) => {
+
+//     //     inquirer
+//     //         .prompt({
+//     //             name: "department_id",
+//     //             type: "list",
+//     //             message: "Which department is this role for?",
+//     //             choices: department.map( (department) => ({
+//     //                 value: department.id,
+//     //                 name: department.name
+//     //             }))
+//     //         }).then(res => {
+
+//     //     console.log(res);
+
+//     //         })
+//     //     // console.table(results);
+//     //     // runMain();
+// });
+// }
+
+function addRole() {
+    db.getDepartments().then((department) => {
+
+        inquirer
+            .prompt({
+                name: "department_id",
+                type: "list",
+                message: "Which department is this role for?",
+                choices: department.map( (department) => ({
+                    value: department.id,
+                    name: department.name
+                }))
+            }).then(res => {
+
+        console.log(res);
+
+            })
+        // console.table(results);
+        // runMain();
+});
+}
+
 function removeEmployee() {
     db.getRemoveEmployee().then((results) => {
         console.table(results);
@@ -114,12 +179,41 @@ function removeEmployee() {
 });
 }
 
-function updateRole() {
-    db.getUpdateRole().then((results) => {
-        console.table(results);
-        runMain();
-});
-}
+// function removeDepartment() {
+//     db.getRemoveEmployee().then((results) => {
+//         console.table(results);
+//         runMain();
+// });
+// }
+
+// function removeRole() {
+//     db.getRemoveEmployee().then((results) => {
+//         console.table(results);
+//         runMain();
+// });
+// }
+
+// function updateRole() {
+//     db.getDepartments().then((department) => {
+
+//         inquirer
+//             .prompt({
+//                 name: "department_id",
+//                 type: "list",
+//                 message: "Which department is this role for?",
+//                 choices: department.map( (department) => ({
+//                     value: department.id,
+//                     name: department.name
+//                 }))
+//             }).then(res => {
+
+//         console.log(res);
+
+//             })
+//         // console.table(results);
+//         // runMain();
+// });
+// }
 
 function updateManager() {
     db.getUpdateManager().then((results) => {
