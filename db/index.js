@@ -1,21 +1,32 @@
 const connection = require("./connection");
 
 module.exports = {
+//View Tables    
 getEmployees() {
-    return connection.query("SELECT * FROM employee")
+    return connection.query("SELECT * FROM employee");
 },
 
 getDepartments() {
-    return connection.query("SELECT * FROM department")
+    return connection.query("SELECT * FROM department");
 },
 
 getRoles() {
-    return connection.query("SELECT * FROM role")
+    return connection.query("SELECT * FROM role");
 },
 
-// getAddRole()
+//Add Data
+getAddRole(res) {
+    return connection.query("INSERT INTO role SET ?",
+        {
+          department_id: res.department_id,
+          title: res.title,
+          salary: res.salary 
+        }
+    )
+}
+ 
+
 // getUpdateRole() {
     
 // }
-//add all function from
 };

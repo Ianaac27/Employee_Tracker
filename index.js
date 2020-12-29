@@ -13,16 +13,16 @@ function runMain() {
         "View all employees",
         "View all departments",
         "View all roles",
-        "View employees by manager",
-        "View budget by department",
+        // "View employees by manager",
+        // "View budget by department",
         "Add employee",
         "Add department",
         "Add role",
-        "Remove employee",
-        "Remove department",
-        "Remove role",
+        // "Remove employee",
+        // "Remove department",
+        // "Remove role",
         "Update employee role",
-        "Update employee manager",
+        // "Update employee manager",
         "Quit"
       ]
     })
@@ -40,13 +40,13 @@ function runMain() {
                 viewRoles();
                 return;    
 
-            case "View employees by manager":
-                employeeManager();
-                return;
+            // case "View employees by manager":
+            //     employeeManager();
+            //     return;
 
-            case "View budget by department":
-                departmentBudget();
-                return;
+            // case "View budget by department":
+            //     departmentBudget();
+            //     return;
 
             case "Add employee":
                 addEmployee();
@@ -60,25 +60,25 @@ function runMain() {
                 addRole();
                 return;
 
-            case "Remove employee":
-                removeEmployee();
-                return;
+            // case "Remove employee":
+            //     removeEmployee();
+            //     return;
 
-            case "Remove department":
-                removeDepartment();
-                return;
+            // case "Remove department":
+            //     removeDepartment();
+            //     return;
             
-            case "Remove role":
-                removeRole();
-                return;    
+            // case "Remove role":
+            //     removeRole();
+            //     return;    
             
             case "Update employee role":
                 updateRole();
                 return;
             
-            case "Update employee manager":
-                updateManager();
-                return;      
+            // case "Update employee manager":
+            //     updateManager();
+            //     return;      
                 
             default:
                 connection.end();
@@ -107,19 +107,19 @@ function viewRoles() {
 });
 }
 
-function employeeManager() {
-    db.getEmployeeManager().then((results) => {
-        console.table(results);
-        runMain();
-});
-}
+// function employeeManager() {
+//     db.getEmployeeManager().then((results) => {
+//         console.table(results);
+//         runMain();
+// });
+// }
 
-function departmentBudget() {
-    db.getDepartmentBudget().then((results) => {
-        console.table(results);
-        runMain();
-});
-}
+// function departmentBudget() {
+//     db.getDepartmentBudget().then((results) => {
+//         console.table(results);
+//         runMain();
+// });
+// }
 
 function addEmployee() {
     db.getAddEmployee().then((results) => {
@@ -154,7 +154,9 @@ function addRole() {
     db.getDepartments().then((department) => {
 
         inquirer
-            .prompt({
+            .prompt([
+                
+                {
                 name: "department_id",
                 type: "list",
                 message: "Which department is this role for?",
@@ -162,22 +164,35 @@ function addRole() {
                     value: department.id,
                     name: department.name
                 }))
-            }).then(res => {
+                },
+                {
+                name: "title",
+                type: "input",
+                message: "What is the title of this role?"
+                }
+                ,
+                {
+                name: "salary",
+                type: "input",
+                message: "What is the salary of this role?",
+                }
+            ]).then((res, err) => {
 
-        console.log(res);
+            db.getAddRole(res);
 
-            })
-        // console.table(results);
-        // runMain();
+                if (err) throw err;
+                console.log("New role successfully created!");
+                runMain();
+              })
 });
 }
 
-function removeEmployee() {
-    db.getRemoveEmployee().then((results) => {
-        console.table(results);
-        runMain();
-});
-}
+// function removeEmployee() {
+//     db.getRemoveEmployee().then((results) => {
+//         console.table(results);
+//         runMain();
+// });
+// }
 
 // function removeDepartment() {
 //     db.getRemoveEmployee().then((results) => {
@@ -215,11 +230,11 @@ function removeEmployee() {
 // });
 // }
 
-function updateManager() {
-    db.getUpdateManager().then((results) => {
-        console.table(results);
-        runMain();
-});
-}
+// function updateManager() {
+//     db.getUpdateManager().then((results) => {
+//         console.table(results);
+//         runMain();
+// });
+// }
 
 runMain();
