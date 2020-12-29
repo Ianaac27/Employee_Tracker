@@ -17,7 +17,7 @@ getRoles() {
 //View Joined Tables
 
 getEmployeesJoin() {
-    return connection.query("SELECT employee.id, employee.first_name, employee.last_name, role.title, department.name, role.salary, employee.manager_id AS manager FROM employee INNER JOIN role ON employee.role_id=role.id INNER JOIN department ON role.department_id=department.id ORDER BY employee.id ASC;");
+    return connection.query("SELECT employee.id, employee.first_name, employee.last_name, role.title, department.name AS department, role.salary, employee.manager_id AS manager FROM employee INNER JOIN role ON employee.role_id=role.id INNER JOIN department ON role.department_id=department.id ORDER BY employee.id ASC;");
 },
 
 getRolesJoin() {
@@ -52,10 +52,17 @@ getAddRole(res) {
           salary: res.salary 
         }
     )
-}
+},
  
-
-// getUpdateRole() {
-    
-// }
+//Update
+getUpdateRole(res3) {
+    return connection.query("UPDATE employee SET ? WHERE ?",
+        [{
+        role_id: res3.role_id
+        },
+        {  
+        id: res3.employee_id,
+        }]
+        )
+         }
 };

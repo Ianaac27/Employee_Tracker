@@ -148,13 +148,14 @@ function addEmployee() {
                 }
             ]).then((res1) => {
 
-                db.getRoles().then((employee) =>{
+                db.getEmployees().then((employee) =>{
+
                 inquirer
                 .prompt([
                 {
                     name: "manager_id",
                     type: "list",
-                    message: "What is their manager's ID?",
+                    message: "Who is their manager?",
                     choices: employee.map((employee) => ({
                         value: employee.id,
                         name: employee.first_name
@@ -162,7 +163,7 @@ function addEmployee() {
                 }
                 ]).then((res2, err) => {
            
-                console.log(res1, res2);
+                // console.log(res1, res2);
 
                 let res3 = {
                     ...res1,
@@ -241,12 +242,26 @@ function addRole() {
 // });
 // }
 
-// function removeDepartment() {
-//     db.getRemoveEmployee().then((results) => {
-//         console.table(results);
-//         runMain();
-// });
-// }
+function removeDepartment() {
+db.getDepartments().then((department) => {
+
+  inquirer
+    .prompt([
+        {
+        name: "name",
+        type: "input",
+        message: "What is the name of the department you would like to add?"
+        }
+    ]).then((res, err) => {
+
+    db.getAddDepartment(res)
+        if (err) throw err;
+        
+        console.log("New department successfully created!");
+        runMain();
+    })
+});
+}
 
 // function removeRole() {
 //     db.getRemoveEmployee().then((results) => {
@@ -255,27 +270,55 @@ function addRole() {
 // });
 // }
 
-// function updateRole() {
-//     db.getDepartments().then((department) => {
+function updateRole() {
+    db.getEmployees().then((employee) => {
 
-//         inquirer
-//             .prompt({
-//                 name: "department_id",
-//                 type: "list",
-//                 message: "Which department is this role for?",
-//                 choices: department.map( (department) => ({
-//                     value: department.id,
-//                     name: department.name
-//                 }))
-//             }).then(res => {
+        inquirer
+            .prompt([
+                {
+                name: "employee_id",
+                type: "list",
+                message: "Which employee do you want to update?",
+                choices: employee.map((employee) => ({
+                    value: employee.id,
+                    name: employee.first_name
+                }))
+                },
+            ]).then((res1) => {
 
-//         console.log(res);
+            db.getRoles().then((role) =>{
 
-//             })
-//         // console.table(results);
-//         // runMain();
-// });
-// }
+            inquirer
+            .prompt([
+                {
+                name: "role_id",
+                type: "list",
+                message: "What is their new title?",
+                choices: role.map((role) => ({
+                    value: role.id,
+                    name: role.title
+                }))
+                }
+            ]).then((res2, err) => {
+           
+                // console.log(res1, res2);
+
+                let res3 = {
+                    ...res1,
+                    ...res2
+                }
+
+                // console.log(res3);
+
+            db.getUpdateRole(res3);
+                if (err) throw err;
+
+                console.log("Employee role updated!");
+                runMain();
+                })})
+})
+});
+}
 
 // function updateManager() {
 //     db.getUpdateManager().then((results) => {
