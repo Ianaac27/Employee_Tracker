@@ -128,27 +128,27 @@ function addEmployee() {
 });
 }
 
-// function addDepartment() {
-//     // db.getDepartments().then((department) => {
+function addDepartment() {
+    // db.getDepartments().then((department) => {
 
-//     //     inquirer
-//     //         .prompt({
-//     //             name: "department_id",
-//     //             type: "list",
-//     //             message: "Which department is this role for?",
-//     //             choices: department.map( (department) => ({
-//     //                 value: department.id,
-//     //                 name: department.name
-//     //             }))
-//     //         }).then(res => {
+        inquirer
+            .prompt([
+                {
+                name: "name",
+                type: "input",
+                message: "What is the title of the department you would like to add?"
+                }
+            ]).then((res, err) => {
 
-//     //     console.log(res);
-
-//     //         })
-//     //     // console.table(results);
-//     //     // runMain();
-// });
-// }
+            db.getAddDepartment(res)
+                if (err) throw err;
+                
+                console.log("New department successfully created!");
+                runMain();
+              })
+// })
+;
+}
 
 function addRole() {
     db.getDepartments().then((department) => {
@@ -179,8 +179,8 @@ function addRole() {
             ]).then((res, err) => {
 
             db.getAddRole(res);
-
                 if (err) throw err;
+
                 console.log("New role successfully created!");
                 runMain();
               })
