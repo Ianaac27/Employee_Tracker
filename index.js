@@ -87,22 +87,22 @@ function runMain() {
 }
 
 function viewEmployees() {
-db.getEmployees().then((results) => {
-    console.table(results);
+db.getEmployeesJoin().then((res) => {
+    console.table(res);
     runMain();
 });
 }
 
 function viewDepartments() {
-    db.getDepartments().then((results) => {
-        console.table(results);
+    db.getDepartments().then((res) => {
+        console.table(res);
         runMain();
 });
 }
 
 function viewRoles() {
-    db.getRoles().then((results) => {
-        console.table(results);
+    db.getRolesJoin().then((res) => {
+        console.table(res);
         runMain();
 });
 }

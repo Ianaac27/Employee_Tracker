@@ -14,6 +14,16 @@ getRoles() {
     return connection.query("SELECT * FROM role");
 },
 
+//View Joined Tables
+
+getEmployeesJoin() {
+    return connection.query("SELECT employee.id, employee.first_name, employee.last_name, role.title, department.name, role.salary, employee.manager_id AS manager FROM employee INNER JOIN role ON employee.role_id=role.id INNER JOIN department ON role.department_id=department.id ORDER BY employee.id ASC;");
+},
+
+getRolesJoin() {
+    return connection.query("SELECT role.id, role.title, role.salary, department.name AS department FROM role INNER JOIN department ON role.department_id=department.id ORDER BY role.id ASC;");
+},
+
 //Add Data
 getAddEmployee(res3) {
     return connection.query("INSERT INTO employee SET ?",
