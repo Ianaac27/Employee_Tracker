@@ -288,10 +288,40 @@ db.getDepartments().then((department) => {
 }
 
 // function removeRole() {
-//     db.getRemoveEmployee().then((results) => {
-//         console.table(results);
-//         runMain();
-// });
+//     db.getEmployees.then((employee) => {
+
+//         inquirer
+//             .prompt([
+                
+//                 {
+//                 name: "role_id",
+//                 type: "list",
+//                 message: "Which roles is this role for?",
+//                 choices: department.map( (department) => ({
+//                     value: department.id,
+//                     name: department.name
+//                 }))
+//                 },
+//                 {
+//                 name: "title",
+//                 type: "input",
+//                 message: "What is the title of this role?"
+//                 }
+//                 ,
+//                 {
+//                 name: "salary",
+//                 type: "input",
+//                 message: "What is the salary of this role?",
+//                 }
+//             ]).then((res, err) => {
+
+//             db.getAddRole(res);
+//                 if (err) throw err;
+
+//                 console.log("New role successfully created!");
+//                 runMain();
+//               })
+//     });
 // }
 
 function updateRole() {

@@ -54,7 +54,7 @@ getAddRole(res) {
     )
 },
  
-//Update
+//Update Data
 getUpdateRole(res3) {
     return connection.query("UPDATE employee SET ? WHERE ?",
         [{
@@ -81,5 +81,13 @@ getRemoveDepartment(res) {
           id: res.name,
         }
     )
-},         
+}
+
+// getRemoveRole(res) {
+//     return connection.query("DELETE FROM role WHERE ?",
+//         {
+//           id: res.title,
+//         }
+//     )
+// } 
 };
