@@ -11,16 +11,16 @@ function runMain() {
       message: "What would you like to do?",
       choices: [
         "View all employees",
-        "View all departments",
         "View all roles",
+        "View all departments",
         // "View employees by manager",
         // "View budget by department",
         "Add employee",
-        "Add department",
         "Add role",
+        "Add department",
         "Remove employee",
+        "Remove role",
         "Remove department",
-        // "Remove role",
         "Update employee role",
         // "Update employee manager",
         "Quit"
@@ -68,9 +68,9 @@ function runMain() {
                 removeDepartment();
                 return;
             
-            // case "Remove role":
-            //     removeRole();
-            //     return;    
+            case "Remove role":
+                removeRole();
+                return;    
             
             case "Update employee role":
                 updateRole();
@@ -162,8 +162,6 @@ function addEmployee() {
                     }))
                 }
                 ]).then((res2, err) => {
-           
-                // console.log(res1, res2);
 
                 let res3 = {
                     ...res1,
@@ -173,7 +171,7 @@ function addEmployee() {
             db.getAddEmployee(res3);
                 if (err) throw err;
 
-                console.log("New employee successfully created!");
+                console.log("New employee successfully created");
                 runMain();
                 })})
     })
@@ -193,7 +191,7 @@ function addDepartment() {
             db.getAddDepartment(res)
                 if (err) throw err;
                 
-                console.log("New department successfully created!");
+                console.log("New department successfully created");
                 runMain();
               });
     }
@@ -229,7 +227,7 @@ function addRole() {
             db.getAddRole(res);
                 if (err) throw err;
 
-                console.log("New role successfully created!");
+                console.log("New role successfully created");
                 runMain();
               })
     });
@@ -250,7 +248,6 @@ function removeEmployee() {
               }))
               }
           ]).then((res, err) => {
-      // console.log(res);
       
           db.getRemoveEmployee(res)
               if (err) throw err;
@@ -276,7 +273,6 @@ db.getDepartments().then((department) => {
         }))
         }
     ]).then((res, err) => {
-// console.log(res);
 
     db.getRemoveDepartment(res)
         if (err) throw err;
@@ -287,42 +283,32 @@ db.getDepartments().then((department) => {
 });
 }
 
-// function removeRole() {
-//     db.getEmployees.then((employee) => {
+function removeRole() {
+    db.getRoles().then((role) => {
 
-//         inquirer
-//             .prompt([
-                
-//                 {
-//                 name: "role_id",
-//                 type: "list",
-//                 message: "Which roles is this role for?",
-//                 choices: department.map( (department) => ({
-//                     value: department.id,
-//                     name: department.name
-//                 }))
-//                 },
-//                 {
-//                 name: "title",
-//                 type: "input",
-//                 message: "What is the title of this role?"
-//                 }
-//                 ,
-//                 {
-//                 name: "salary",
-//                 type: "input",
-//                 message: "What is the salary of this role?",
-//                 }
-//             ]).then((res, err) => {
+        inquirer
+          .prompt([
+              {
+              name: "name",
+              type: "list",
+              message: "Which role would you like to delete?",
+              choices: role.map((role) => ({
+                  value: role.id,
+                  name: role.title
+              }))
+              }
+          ]).then((res, err) => {
 
-//             db.getAddRole(res);
-//                 if (err) throw err;
-
-//                 console.log("New role successfully created!");
-//                 runMain();
-//               })
-//     });
-// }
+            console.log(res);
+      
+          db.getRemoveRole(res)
+              if (err) throw err;
+              
+              console.log("Role successfully removed");
+              runMain();
+          })
+      });
+}
 
 function updateRole() {
     db.getEmployees().then((employee) => {
@@ -354,20 +340,16 @@ function updateRole() {
                 }))
                 }
             ]).then((res2, err) => {
-           
-                // console.log(res1, res2);
 
                 let res3 = {
                     ...res1,
                     ...res2
                 }
 
-                // console.log(res3);
-
             db.getUpdateRole(res3);
                 if (err) throw err;
 
-                console.log("Employee role updated!");
+                console.log("Employee role updated");
                 runMain();
                 })})
 })

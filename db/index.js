@@ -81,13 +81,13 @@ getRemoveDepartment(res) {
           id: res.name,
         }
     )
-}
+},
 
-// getRemoveRole(res) {
-//     return connection.query("DELETE FROM role WHERE ?",
-//         {
-//           id: res.title,
-//         }
-//     )
-// } 
+getRemoveRole(res) {
+    return connection.query("DELETE FROM role WHERE ?",
+        {
+          id: res.name,
+        }
+    )
+} 
 };

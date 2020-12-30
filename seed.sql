@@ -30,4 +30,4 @@ VALUES
     ('Sarah', 'Johnson', 5, NULL),
     ('Emily', 'Corcoran', 6, 5),
     ('Kayl', 'Rae', 7, NULL),
-    ('Kylah', 'Joy', 8, 7),  
+    ('Kylah', 'Joy', 8, 7)  
