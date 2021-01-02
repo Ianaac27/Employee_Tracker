@@ -150,16 +150,25 @@ function addEmployee() {
 
                 db.getEmployees().then((employee) =>{
 
+                const managerChoices =  employee.map((employee) => ({
+                    value: employee.id,
+                    name: employee.first_name+' '+employee.last_name
+                }))
+                
+                const nullVar = {
+                    value: null,
+                    name: null
+                };
+                
+                managerChoices.push(nullVar);
+
                 inquirer
                 .prompt([
                 {
                     name: "manager_id",
                     type: "list",
-                    message: "Who is their manager?",
-                    choices: employee.map((employee) => ({
-                        value: employee.id,
-                        name: employee.first_name
-                    }))
+                    message: "Who is their manager? Please select 'null' if nobody.",
+                    choices: managerChoices
                 }
                 ]).then((res2, err) => {
 
@@ -167,13 +176,14 @@ function addEmployee() {
                     ...res1,
                     ...res2
                 }
-
+                
             db.getAddEmployee(res3);
                 if (err) throw err;
 
                 console.log("New employee successfully created");
                 runMain();
-                })})
+                })
+            })
     })
     });
 }
@@ -244,7 +254,7 @@ function removeEmployee() {
               message: "Which employee would you like to delete?",
               choices: employee.map( (employee) => ({
                   value: employee.id,
-                  name: employee.first_name
+                  name: employee.first_name+' '+employee.last_name
               }))
               }
           ]).then((res, err) => {
@@ -321,7 +331,7 @@ function updateRole() {
                 message: "Which employee do you want to update?",
                 choices: employee.map((employee) => ({
                     value: employee.id,
-                    name: employee.first_name
+                    name: employee.first_name+' '+employee.last_name
                 }))
                 },
             ]).then((res1) => {
