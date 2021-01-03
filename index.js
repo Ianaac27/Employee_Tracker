@@ -3,6 +3,7 @@ const inquirer = require("inquirer");
 const db = require("./db");
 const connection = require("./db/connection");
 
+//========================================================================== Main Prompt ==========================================================================================
 function runMain() {
     inquirer
     .prompt({
@@ -86,6 +87,8 @@ function runMain() {
     });
 }
 
+//========================================================================== View Tables ==========================================================================================
+//View Employees
 function viewEmployees() {
 db.getEmployeesJoin().then((res) => {
     console.table(res);
@@ -93,6 +96,7 @@ db.getEmployeesJoin().then((res) => {
 });
 }
 
+//View Departments
 function viewDepartments() {
     db.getDepartments().then((res) => {
         console.table(res);
@@ -100,6 +104,7 @@ function viewDepartments() {
 });
 }
 
+//View Roles
 function viewRoles() {
     db.getRolesJoin().then((res) => {
         console.table(res);
@@ -107,6 +112,7 @@ function viewRoles() {
 });
 }
 
+//View employees by manager
 function viewManager() {
     db.getManagersJoin().then((res) => {
         console.table(res);
@@ -114,6 +120,8 @@ function viewManager() {
 });
 }
 
+
+//View department budget
 function departmentBudget() {
     db.getDepartments().then((department) => {
 
@@ -136,11 +144,13 @@ function departmentBudget() {
                     
                     console.table(res2);
                     runMain();
-        }
-    )})
-});
+                }
+            )})
+        });
 }
 
+//========================================================================== Add Data ==========================================================================================
+//Add Employee
 function addEmployee() {
     db.getRoles().then((role) => {
 
@@ -197,7 +207,6 @@ function addEmployee() {
                     ...res2
                 }
 
-                // console.log(res3);
             db.getAddEmployee(res3);
                 if (err) throw err;
 
@@ -209,6 +218,7 @@ function addEmployee() {
     });
 }
 
+//Add Department
 function addDepartment() {
         inquirer
             .prompt([
@@ -227,6 +237,7 @@ function addDepartment() {
               });
     }
 
+//Add Role    
 function addRole() {
     db.getDepartments().then((department) => {
 
@@ -264,6 +275,8 @@ function addRole() {
     });
     }
 
+//========================================================================== Remove Data ==========================================================================================
+//Remove Employee
 function removeEmployee() {
     db.getEmployees().then((employee) => {
 
@@ -289,6 +302,7 @@ function removeEmployee() {
       });
 }
 
+//Remove Department
 function removeDepartment() {
 db.getDepartments().then((department) => {
 
@@ -314,6 +328,7 @@ db.getDepartments().then((department) => {
 });
 }
 
+//Remove Role
 function removeRole() {
     db.getRoles().then((role) => {
 
@@ -341,6 +356,8 @@ function removeRole() {
       });
 }
 
+//========================================================================== Update Data ==========================================================================================
+//Update Role
 function updateRole() {
     db.getEmployees().then((employee) => {
 
@@ -387,6 +404,7 @@ function updateRole() {
 });
 }
 
+//Update employee's manager
 function updateManager() {
     db.getEmployees().then((employee) => {
         
@@ -421,7 +439,6 @@ function updateManager() {
             }
         ]).then((res, err) => {
 
-            // console.log(res);
         db.getUpdateManager(res);
             if (err) throw err;
 
@@ -431,4 +448,5 @@ function updateManager() {
 });
 }
 
+//========================================================================== Return to Main Prompt ==========================================================================================
 runMain();
