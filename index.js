@@ -40,9 +40,9 @@ function runMain() {
                 viewRoles();
                 return;    
 
-            // case "View employees by manager":
-            //     employeeManager();
-            //     return;
+            case "View employees by manager":
+                viewEmployeeManager();
+                return;
 
             // case "View budget by department":
             //     departmentBudget();
@@ -107,12 +107,12 @@ function viewRoles() {
 });
 }
 
-// function employeeManager() {
-//     db.getEmployeeManager().then((results) => {
-//         console.table(results);
-//         runMain();
-// });
-// }
+function viewEmployeeManager() {
+    db.getEmployeeManager().then((results) => {
+        console.table(results);
+        runMain();
+});
+}
 
 // function departmentBudget() {
 //     db.getDepartmentBudget().then((results) => {
@@ -396,7 +396,7 @@ function updateManager() {
             {
             name: "manager_id",
             type: "list",
-            message: "Who will be their updated manager?",
+            message: "Who will their updated manager be? Please select null if no manager.",
             choices: managerChoice2
             }
         ]).then((res, err) => {
