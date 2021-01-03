@@ -64,7 +64,19 @@ getUpdateRole(res3) {
         id: res3.employee_id,
         }]
         )
-         },
+},
+
+getUpdateManager(res) {
+    return connection.query("UPDATE employee SET ? WHERE ?",
+        [{
+        manager_id: res.manager_id
+        },
+        {  
+        id: res.employee_id,
+        }]
+        )
+},
+
 
 //Remove Data
 getRemoveEmployee(res) {

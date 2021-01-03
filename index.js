@@ -13,7 +13,7 @@ function runMain() {
         "View all employees",
         "View all roles",
         "View all departments",
-        // "View employees by manager",
+        "View employees by manager",
         // "View budget by department",
         "Add employee",
         "Add role",
@@ -22,7 +22,7 @@ function runMain() {
         "Remove role",
         "Remove department",
         "Update employee role",
-        // "Update employee manager",
+        "Update employee manager",
         "Quit"
       ]
     })
@@ -76,9 +76,9 @@ function runMain() {
                 updateRole();
                 return;
             
-            // case "Update employee manager":
-            //     updateManager();
-            //     return;      
+            case "Update employee manager":
+                updateManager();
+                return;      
                 
             default:
                 connection.end();
@@ -150,7 +150,7 @@ function addEmployee() {
 
                 db.getEmployees().then((employee) =>{
 
-                const managerChoices =  employee.map((employee) => ({
+                let managerChoice1 =  employee.map((employee) => ({
                     value: employee.id,
                     name: employee.first_name+' '+employee.last_name
                 }))
@@ -160,7 +160,7 @@ function addEmployee() {
                     name: null
                 };
                 
-                managerChoices.push(nullVar);
+                managerChoice1.push(nullVar);
 
                 inquirer
                 .prompt([
@@ -168,7 +168,7 @@ function addEmployee() {
                     name: "manager_id",
                     type: "list",
                     message: "Who is their manager? Please select 'null' if nobody.",
-                    choices: managerChoices
+                    choices: managerChoice1
                 }
                 ]).then((res2, err) => {
 
@@ -367,11 +367,48 @@ function updateRole() {
 });
 }
 
-// function updateManager() {
-//     db.getUpdateManager().then((results) => {
-//         console.table(results);
-//         runMain();
-// });
-// }
+function updateManager() {
+    db.getEmployees().then((employee) => {
+        
+        let managerChoice2 =  employee.map((employee) => ({
+            value: employee.id,
+            name: employee.first_name+' '+employee.last_name
+        }))
+        
+        const nullVar = {
+            value: null,
+            name: null
+        };
+        
+        managerChoice2.push(nullVar);
+
+        inquirer
+        .prompt([
+            {
+            name: "employee_id",
+            type: "list",
+            message: "Which employee do you want to update?",
+            choices: employee.map((employee) => ({
+                value: employee.id,
+                name: employee.first_name+' '+employee.last_name
+            }))
+            },
+            {
+            name: "manager_id",
+            type: "list",
+            message: "Who will be their updated manager?",
+            choices: managerChoice2
+            }
+        ]).then((res, err) => {
+
+            // console.log(res);
+        db.getUpdateManager(res);
+            if (err) throw err;
+
+            console.log("Employee's manager updated");
+            runMain();
+})
+});
+}
 
 runMain();
