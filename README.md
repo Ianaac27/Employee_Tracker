@@ -9,6 +9,7 @@ An application that allows employers to help manage their company employees. Thi
 * [License](#license)
 * [Contributing](#contributing)
 * [Tests](#tests)
+* [Screenshot](#screenshot)
 * [Questions](#questions)
 
 ## License
@@ -24,6 +25,10 @@ Ianaac27
 ## Tests
 
 [![Employee Tracker Walkthrough](output/assets/walkthrough.PNG)](https://drive.google.com/file/d/1SZ1SxMxBqum1wyx8Ey3jFJGesAiTLqfe/view)
+
+## Screenshot
+
+![Employee Tracker](assets/screenshot.PNG)
 
 ## Questions
 
