@@ -1,7 +1,8 @@
 const connection = require("./connection");
 
 module.exports = {
-//View Tables    
+
+//View Initial Tables    
 getEmployees() {
     return connection.query("SELECT * FROM employee");
 },
@@ -26,6 +27,14 @@ getRolesJoin() {
 
 getManagersJoin() {
     return connection.query("SELECT m.id AS manager_id, CONCAT(m.first_name, ' ', m.last_name) AS manager, e.id AS employee_id, e.first_name, e.last_name, role.title FROM employee e INNER JOIN role ON e.role_id=role.id LEFT JOIN employee m ON m.id=e.manager_id ORDER BY m.last_name ASC;");
+},
+
+getDepartmentBudget(res) {
+    return connection.query("SELECT department.name AS department, SUM(role.salary) AS total_budget FROM employee INNER JOIN role ON employee.role_id=role.id INNER JOIN department ON role.department_id=department.id WHERE ?;", 
+    {
+        department_id: res.department_id
+    }
+    )
 },
 
 //Add Data

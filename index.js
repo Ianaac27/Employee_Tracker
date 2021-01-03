@@ -14,7 +14,7 @@ function runMain() {
         "View all roles",
         "View all departments",
         "View employees by manager",
-        // "View budget by department",
+        "View budget by department",
         "Add employee",
         "Add role",
         "Add department",
@@ -44,9 +44,9 @@ function runMain() {
                 viewManager();
                 return;
 
-            // case "View budget by department":
-            //     departmentBudget();
-            //     return;
+            case "View budget by department":
+                departmentBudget();
+                return;
 
             case "Add employee":
                 addEmployee();
@@ -114,12 +114,32 @@ function viewManager() {
 });
 }
 
-// function departmentBudget() {
-//     db.getDepartmentBudget().then((results) => {
-//         console.table(results);
-//         runMain();
-// });
-// }
+function departmentBudget() {
+    db.getDepartments().then((department) => {
+
+        inquirer
+            .prompt([
+                {
+                name: "department_id",
+                type: "list",
+                message: "Which department would you like to view?",
+                choices: department.map( (department) => ({
+                    value: department.id,
+                    name: department.name
+                }))
+                }
+            ]).then((res, err) => {     
+
+        db.getDepartmentBudget(res).then((res2) => {
+
+                    if (err) throw err;
+                    
+                    console.table(res2);
+                    runMain();
+        }
+    )})
+});
+}
 
 function addEmployee() {
     db.getRoles().then((role) => {
