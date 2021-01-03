@@ -1,4 +1,5 @@
 const inquirer = require("inquirer");
+const logo = require('asciiart-logo');
 
 const db = require("./db");
 const connection = require("./db/connection");
@@ -449,4 +450,21 @@ function updateManager() {
 }
 
 //========================================================================== Return to Main Prompt ==========================================================================================
+console.log(
+    logo({
+        name: 'Employee Tracker',
+        font: 'Standard',
+        lineChars: 10,
+        padding: 2,
+        margin: 3,
+        borderColor: 'grey',
+        logoColor: 'bold-cyan',
+        textColor: 'cyan',
+    })
+    .emptyLine()
+    .right('version 0.2.6')
+    .emptyLine()
+    .render()
+);
+
 runMain();
