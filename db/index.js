@@ -24,6 +24,10 @@ getRolesJoin() {
     return connection.query("SELECT role.id, role.title, role.salary, department.name AS department FROM role INNER JOIN department ON role.department_id=department.id ORDER BY role.id ASC;");
 },
 
+getManagersJoin() {
+    return connection.query("SELECT m.id AS manager_id, CONCAT(m.first_name, ' ', m.last_name) AS manager, e.id AS employee_id, e.first_name, e.last_name, role.title FROM employee e INNER JOIN role ON e.role_id=role.id LEFT JOIN employee m ON m.id=e.manager_id ORDER BY m.last_name ASC;");
+},
+
 //Add Data
 getAddEmployee(res3) {
     return connection.query("INSERT INTO employee SET ?",

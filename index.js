@@ -41,7 +41,7 @@ function runMain() {
                 return;    
 
             case "View employees by manager":
-                viewEmployeeManager();
+                viewManager();
                 return;
 
             // case "View budget by department":
@@ -107,9 +107,9 @@ function viewRoles() {
 });
 }
 
-function viewEmployeeManager() {
-    db.getEmployeeManager().then((results) => {
-        console.table(results);
+function viewManager() {
+    db.getManagersJoin().then((res) => {
+        console.table(res);
         runMain();
 });
 }
