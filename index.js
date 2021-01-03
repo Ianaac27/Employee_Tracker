@@ -176,7 +176,8 @@ function addEmployee() {
                     ...res1,
                     ...res2
                 }
-                
+
+                // console.log(res3);
             db.getAddEmployee(res3);
                 if (err) throw err;
 
