@@ -24,7 +24,7 @@ Ianaac27
 
 ## Tests
 
-[![Employee Tracker Walkthrough](output/assets/walkthrough_screenshot.PNG)](https://drive.google.com/file/d/1Fldk6dKDJxZUS4lZ9z5f2ix2ypP03kpN/view)
+[![Employee Tracker Walkthrough](assets/walkthrough_screenshot.PNG)](https://drive.google.com/file/d/1Fldk6dKDJxZUS4lZ9z5f2ix2ypP03kpN/view)
 
 ## Screenshot
 
